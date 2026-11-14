@@ -357,3 +357,6 @@ a { text-underline-offset: 4px; }
 @media (prefers-reduced-motion:reduce) {
   .motion-toggle { display: none !important; }
 }
+
+/* Keep content fully visible when an animated reveal is paused mid-entry. */
+.motion-paused .reveal.in { animation:none !important; opacity:1 !important; transform:none !important; }

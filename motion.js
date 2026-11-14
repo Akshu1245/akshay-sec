@@ -10,7 +10,6 @@
   toggle.type = 'button';
   toggle.className = 'motion-toggle';
   toggle.id = 'motionToggle';
-  toggle.setAttribute('aria-controls', 'top');
   document.body.append(toggle);
 
   function render() {
