@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#070f1c">
+<meta name="description" content="Try four interactive, browser-only educational demos inspired by K S Akshay's open-source Python security tools.">
+<title>Security Workbench | K S Akshay</title>
+<link rel="icon" type="image/svg+xml" href="assets/mark.svg">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="studio.css">
+</head>
+<body class="inner-page workbench-page">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<video class="bg-video" aria-hidden="true" autoplay muted loop playsinline preload="metadata" poster="assets/bg-poster.jpg"><source src="assets/bg-loop.mp4" type="video/mp4"></video>
+<header class="nav glass" id="top">
+  <a class="brand" href="index.html" aria-label="Akshay security portfolio home"><span class="brand-dot"></span>akshay<span class="brand-dim">.sec</span></a>
+  <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
+    <a href="index.html#about">About</a>
+    <a href="index.html#projects">Projects</a>
+    <a href="workbench.html" aria-current="page">Workbench</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <a class="btn btn-fill btn-sm nav-cta" href="mailto:akshaykammar31@gmail.com">Email me</a>
+  <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+</header>
+<main id="main-content" class="inner-main">
+  <div class="breadcrumb"><a href="index.html">Portfolio</a><span aria-hidden="true">/</span><span>Security workbench</span></div>
+  <header class="workbench-header">
+    <div><p class="sec-tag">INTERACTIVE / LOCAL / EXPLAINABLE</p><h1>Security<br><span class="hl">Workbench.</span></h1>
+      <p>Four practical security ideas, shown as small browser demos. Change an input. See the reasoning. Then open the actual Python source.</p>
+      <div class="workbench-mini"><span><i class="pulse-dot"></i> Runs in this tab</span><span>Sample data first</span><span>No targets scanned</span></div>
+    </div>
+    <div class="workbench-graphic glass" aria-hidden="true"><span class="workbench-orbit orbit-one"></span><span class="workbench-orbit orbit-two"></span><span class="workbench-orbit orbit-three"></span><span class="workbench-core">A<span>/</span>S</span><span class="workbench-gridlines"></span></div>
+  </header>
+
+  <div class="lab-disclaimer glass" role="note"><span aria-hidden="true">ⓘ</span><p><strong>What this is:</strong> simplified educational reimplementations of ideas used in four public Python projects. These do <strong>not</strong> execute the Python source, contact a threat feed, scan a server, or verify anyone's security. Use fictional samples only; do not paste real passwords or private logs.</p></div>
+
+  <section class="lab-layout" aria-labelledby="lab-heading">
+    <div class="lab-sidebar glass">
+      <h2 id="lab-heading">Select a tool</h2>
+      <p>01—04 / experiments</p>
+      <div class="lab-tabs" role="tablist" aria-label="Choose a tool" aria-orientation="vertical">
+        <button type="button" class="lab-tab is-selected" role="tab" id="tab-phishcheck" aria-selected="true" aria-controls="panel-phishcheck" data-tool="phishcheck"><span>01</span><strong>phishcheck</strong><small>URL heuristics</small></button>
+        <button type="button" class="lab-tab" role="tab" id="tab-headercheck" aria-selected="false" aria-controls="panel-headercheck" data-tool="headercheck" tabindex="-1"><span>02</span><strong>headercheck</strong><small>Response headers</small></button>
+        <button type="button" class="lab-tab" role="tab" id="tab-passaudit" aria-selected="false" aria-controls="panel-passaudit" data-tool="passaudit" tabindex="-1"><span>03</span><strong>passaudit</strong><small>Password patterns</small></button>
+        <button type="button" class="lab-tab" role="tab" id="tab-logwatch" aria-selected="false" aria-controls="panel-logwatch" data-tool="logwatch" tabindex="-1"><span>04</span><strong>logwatch</strong><small>Auth log review</small></button>
+      </div>
+      <div class="lab-sidebar-foot"><span class="pulse-dot" aria-hidden="true"></span><span>Local example mode</span></div>
+    </div>
+    <div class="lab-stage">
+      <section class="lab-panel glass" role="tabpanel" id="panel-phishcheck" aria-labelledby="tab-phishcheck">
+        <div class="lab-panel-top"><div><p class="sec-tag">01 / URL INSPECTION</p><h2>Investigate a link.</h2><p>Find simple warning signs in a URL without ever visiting it.</p></div><span class="lab-chip">No network</span></div>
+        <form id="phishForm" class="demo-form">
+          <label for="phishInput">URL to inspect</label>
+          <input type="url" id="phishInput" required spellcheck="false" autocomplete="off" value="http://paypa1-login.example/verify" placeholder="https://example.com">
+          <div class="sample-row"><span>Try:</span><button type="button" data-url-sample="http://paypa1-login.example/verify">Lookalike</button><button type="button" data-url-sample="https://example.com">Simple HTTPS</button><button type="button" data-url-sample="http://192.0.2.25/login">IP host</button></div>
+          <button class="btn btn-fill" type="submit">Analyze URL <span aria-hidden="true">↗</span></button>
+        </form>
+        <div id="phishResult" class="demo-result" role="status" aria-live="polite"><p class="empty-result">Choose a sample or enter a URL to inspect.</p></div>
+        <div class="lab-source"><span>Real project: Python CLI, local heuristics</span><a href="https://github.com/Akshu1245/phishcheck" target="_blank" rel="noopener noreferrer">Read phishcheck source ↗</a></div>
+      </section>
+
+      <section class="lab-panel glass" role="tabpanel" id="panel-headercheck" aria-labelledby="tab-headercheck" hidden>
+        <div class="lab-panel-top"><div><p class="sec-tag">02 / HEADER REVIEW</p><h2>Look at the headers.</h2><p>Compare sample HTTP response headers to basic security controls.</p></div><span class="lab-chip">Fixture only</span></div>
+        <form id="headerForm" class="demo-form">
+          <label for="headerPreset">Response fixture</label>
+          <select id="headerPreset"><option value="strong">Well-configured example</option><option value="weak">Missing-control example</option><option value="custom">Paste fictional headers</option></select>
+          <label for="headerInput">Response headers</label>
+          <textarea id="headerInput" rows="8" spellcheck="false" aria-describedby="headerHelp"></textarea>
+          <p class="input-hint" id="headerHelp">Illustrative response text only. This tool does not fetch a website or validate the TLS connection.</p>
+          <button class="btn btn-fill" type="submit">Inspect fixture <span aria-hidden="true">↗</span></button>
+        </form>
+        <div id="headerResult" class="demo-result" role="status" aria-live="polite"><p class="empty-result">Select a fixture to inspect.</p></div>
+        <div class="lab-source"><span>Real project: Python HTTP/TLS inspector</span><a href="https://github.com/Akshu1245/headercheck" target="_blank" rel="noopener noreferrer">Read headercheck source ↗</a></div>
+      </section>
+
+      <section class="lab-panel glass" role="tabpanel" id="panel-passaudit" aria-labelledby="tab-passaudit" hidden>
+        <div class="lab-panel-top"><div><p class="sec-tag">03 / PATTERN CHECKS</p><h2>Test a sample password.</h2><p>Explore how length and predictable patterns affect a rough score.</p></div><span class="lab-chip">Illustrative score</span></div>
+        <form id="passForm" class="demo-form">
+          <label for="passInput">Fictional password only</label>
+          <div class="password-input"><input type="password" id="passInput" autocomplete="off" spellcheck="false" value="Sunflower2024!" minlength="1" maxlength="128"><button type="button" id="showPassword" aria-label="Show fictional password">Show</button></div>
+          <p class="input-hint">Do not enter a password you actually use. This page does not send the input to a server.</p>
+          <div class="sample-row"><span>Try:</span><button type="button" data-pass-sample="password123">Predictable</button><button type="button" data-pass-sample="Sunflower2024!">Common structure</button><button type="button" data-pass-sample="v7@Pr9#qL2!kWx">Random-looking sample</button></div>
+          <button class="btn btn-fill" type="submit">Review patterns <span aria-hidden="true">↗</span></button>
+        </form>
+        <div id="passResult" class="demo-result" role="status" aria-live="polite"><p class="empty-result">Use a fictional example to review visible patterns.</p></div>
+        <div class="lab-source"><span>Real project: Python password-pattern auditor</span><a href="https://github.com/Akshu1245/passaudit" target="_blank" rel="noopener noreferrer">Read passaudit source ↗</a></div>
+      </section>
+
+      <section class="lab-panel glass" role="tabpanel" id="panel-logwatch" aria-labelledby="tab-logwatch" hidden>
+        <div class="lab-panel-top"><div><p class="sec-tag">04 / AUTH EVENT REVIEW</p><h2>Follow the login attempts.</h2><p>Spot bursts of failed SSH logins and success after repeated failures.</p></div><span class="lab-chip">Documentation IPs</span></div>
+        <form id="logForm" class="demo-form">
+          <label for="logInput">Sample SSH auth log</label>
+          <textarea id="logInput" rows="10" spellcheck="false" aria-describedby="logHelp"></textarea>
+          <p class="input-hint" id="logHelp">Uses reserved documentation IP addresses. Simplified parser for sample OpenSSH lines, not a production incident detector.</p>
+          <div class="sample-row"><button type="button" id="resetLog">Restore sample log</button></div>
+          <button class="btn btn-fill" type="submit">Review events <span aria-hidden="true">↗</span></button>
+        </form>
+        <div id="logResult" class="demo-result" role="status" aria-live="polite"><p class="empty-result">Analyze the sample to explore the event timeline.</p></div>
+        <div class="lab-source"><span>Real project: Python SSH log parser</span><a href="https://github.com/Akshu1245/logwatch" target="_blank" rel="noopener noreferrer">Read logwatch source ↗</a></div>
+      </section>
+    </div>
+  </section>
+  <section class="workbench-outro glass"><div><p class="sec-tag">NEXT STEP / THE SOURCE</p><h2>Don't stop at the demo.</h2><p>These browser exercises explain the idea. The Python repositories show the real implementations, tests, and limitations.</p></div><a class="btn btn-line" href="index.html#tools">Explore all four tools</a></section>
+</main>
+<footer class="studio-footer"><span>© 2026 K S Akshay · Learn with examples. Test only with permission.</span><span><a href="https://github.com/Akshu1245" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="index.html">Portfolio</a></span></footer>
+<script src="bg-field.js" data-accent="#41d9ff"></script>
+<script src="site-shell.js" defer></script>
+<script type="module" src="workbench.mjs"></script>
+</body>
+</html>
