@@ -90,7 +90,14 @@ test('keyboard tabs and reduced-motion view remain usable',async({page})=>{
 
 test('all project evidence images have local, decoded assets',async({page})=>{
   await page.goto('/');
-  const images=await page.locator('.shot').evaluateAll(imgs=>imgs.map(img=>({src:img.getAttribute('src'),loaded:img.complete&&img.naturalWidth>0})));
+  // Images are intentionally lazy; request decoding before judging their integrity.
+  const images=await page.locator('.shot').evaluateAll(async imgs=>{
+    return Promise.all(imgs.map(async img=>{
+      img.loading='eager';
+      try { await img.decode(); } catch {}
+      return {src:img.getAttribute('src'),loaded:img.complete&&img.naturalWidth>0};
+    }));
+  });
   expect(images).toHaveLength(6);
   expect(images.every(image=>image.loaded)).toBe(true);
   expect(images.some(image=>image.src==='assets/shot-cyberlab.png')).toBe(true);
