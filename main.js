@@ -6,24 +6,49 @@ toggle.addEventListener('click', () => {
   toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
 });
-links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+const closeMenu = () => {
   links.classList.remove('open');
   toggle.setAttribute('aria-expanded', 'false');
-}));
+  toggle.setAttribute('aria-label', 'Open menu');
+};
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && links.classList.contains('open')) {
+    closeMenu();
+    toggle.focus();
+  }
+});
+document.addEventListener('click', e => {
+  if (!links.contains(e.target) && !toggle.contains(e.target)) closeMenu();
+});
 
-// copy email
+// Copy feedback reports failure rather than claiming success.
 const copyBtn = document.getElementById('copyEmail');
+const copyStatus = document.getElementById('copyStatus');
 copyBtn.addEventListener('click', async () => {
   const email = copyBtn.dataset.email;
+  let copied = false;
   try {
-    await navigator.clipboard.writeText(email);
-  } catch (e) {
-    const ta = document.createElement('textarea');
-    ta.value = email; document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); ta.remove();
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(email);
+      copied = true;
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = email;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      copied = document.execCommand('copy');
+      ta.remove();
+    }
+  } catch {
+    copied = false;
   }
-  copyBtn.textContent = 'copied';
-  setTimeout(() => { copyBtn.textContent = 'copy'; }, 1600);
+  copyBtn.textContent = copied ? 'copied' : 'copy unavailable';
+  copyStatus.textContent = copied ? 'Email address copied to clipboard.' : 'Copy unavailable. Use the email link instead.';
+  setTimeout(() => { copyBtn.textContent = 'copy'; }, 2200);
 });
 
 // scrollspy
@@ -33,7 +58,12 @@ addEventListener('scroll', () => {
   const y = scrollY + 140;
   let cur = null;
   for (const s of secs) if (s.offsetTop <= y) cur = s.id;
-  spy.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+  spy.forEach(a => {
+    const active = a.getAttribute('href') === '#' + cur;
+    a.classList.toggle('active', active);
+    if (active) a.setAttribute('aria-current', 'location');
+    else a.removeAttribute('aria-current');
+  });
 }, { passive: true });
 
 // ===== motion layer =====
@@ -108,7 +138,7 @@ addEventListener('scroll', () => {
 (() => {
   const el = document.getElementById('procText');
   if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const lines = ['scanning for anomalies', 'verifying signatures', 'checking policy lines', 'tracing request paths', 'watching the perimeter'];
+  const lines = ['QR scanning · local-first', 'Python tools · public source', 'WhisperCache · hackathon prototype', 'RaksHex · private beta', 'Open to security internships'];
   let i = 0;
   setInterval(() => { i = (i + 1) % lines.length; el.textContent = lines[i]; }, 2600);
 })();
