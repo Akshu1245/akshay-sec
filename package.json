@@ -1,0 +1,14 @@
+{
+  "name": "akshay-sec-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dependency-free static website; optional development checks use Playwright.",
+  "scripts": {
+    "test": "node --test tests/engines.test.mjs",
+    "check": "node scripts/check-site.mjs",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}
