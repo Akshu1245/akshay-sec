@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K S Akshay - Cybersecurity</title>
+<meta name="description" content="K S Akshay - final-year BCA student and cybersecurity intern. QR phishing detection, vulnerability scanning, zero-knowledge tooling. Open to cybersecurity internships.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<video class="bg-video" autoplay muted loop playsinline preload="metadata" poster="assets/bg-poster.jpg">
+  <source src="assets/bg-loop.mp4" type="video/mp4">
+</video>
+
+<header class="nav glass" id="top">
+  <a class="brand" href="#top"><span class="brand-dot"></span>akshay<span class="brand-dim">.sec</span></a>
+  <nav class="nav-links" id="navLinks" aria-label="Sections">
+    <a href="#about">about</a>
+    <a href="#internship">internship</a>
+    <a href="#company">company</a>
+    <a href="#projects">projects</a>
+    <a href="#tools">tools</a>
+  </nav>
+  <a class="btn btn-fill btn-sm nav-cta" href="#contact">get in touch</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="chip glass"><span class="pulse-dot"></span>open to cybersecurity internships</p>
+    <h1>K&nbsp;S<br>Akshay</h1>
+    <p class="role">I check what things do <span class="hl">before they run</span>.</p>
+    <p class="lede">Final-year BCA student in Bengaluru. During my cybersecurity internship at
+      <strong>Zephyr Technologies</strong> I built <strong>QRShield</strong> - a QR &amp; link risk checker
+      that runs entirely on your device. I like security tools that explain themselves.</p>
+    <div class="hero-cta">
+      <a class="btn btn-fill" href="#projects">view projects</a>
+      <a class="btn btn-line" href="#contact">get in touch</a>
+    </div>
+  </div>
+
+  <!-- Original illustration: little guardian robot with a gold key and its padlock.
+       Drawn for this portfolio in the spirit of the reference pin; no assets copied. -->
+  <div class="hero-art" aria-hidden="true">
+    <div class="hero-panel glass">
+      <p class="proc-line"><span class="pulse-dot"></span><span id="procText">scanning for anomalies</span></p>
+      <svg class="bot" viewBox="0 0 460 400" role="img">
+        <defs>
+          <radialGradient id="floorGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#41d9ff" stop-opacity=".28"/>
+            <stop offset="100%" stop-color="#41d9ff" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="lockBody" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4d8dff"/>
+            <stop offset="100%" stop-color="#2653c9"/>
+          </linearGradient>
+          <linearGradient id="botShell" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#cdd9e8"/>
+          </linearGradient>
+          <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffe08a"/>
+            <stop offset="55%" stop-color="#f5c542"/>
+            <stop offset="100%" stop-color="#d99a12"/>
+          </linearGradient>
+        </defs>
+
+        <ellipse cx="230" cy="362" rx="150" ry="26" fill="url(#floorGlow)"/>
+
+        <!-- padlock -->
+        <g class="lock">
+          <path class="lock-shackle" d="M318 176 v-22 a34 34 0 0 1 68 0 v22" fill="none" stroke="#9fb4cf" stroke-width="13" stroke-linecap="round"/>
+          <rect x="296" y="172" width="112" height="96" rx="18" fill="url(#lockBody)" stroke="#7fb0ff" stroke-opacity=".5" stroke-width="2"/>
+          <circle class="lock-hole-glow" cx="352" cy="212" r="22" fill="#41d9ff" opacity=".14"/>
+          <circle cx="352" cy="208" r="11" fill="#0b1a2e"/>
+          <rect x="348" y="212" width="8" height="22" rx="4" fill="#0b1a2e"/>
+          <circle class="lock-spark" cx="330" cy="188" r="3.2" fill="#bfe9ff"/>
+        </g>
+
+        <!-- robot -->
+        <g class="robot">
+          <!-- key held low -->
+          <g class="key">
+            <circle cx="120" cy="292" r="17" fill="none" stroke="url(#gold)" stroke-width="9"/>
+            <rect x="120" y="292" width="10" height="58" rx="5" transform="translate(-5 0) rotate(0 120 292)" fill="url(#gold)"/>
+            <rect x="122" y="330" width="16" height="8" rx="3" fill="url(#gold)"/>
+            <rect x="122" y="342" width="12" height="8" rx="3" fill="url(#gold)"/>
+            <path class="key-glint" d="M104 278 l4 8 8 4 -8 4 -4 8 -4 -8 -8 -4 8 -4 z" fill="#fff8dd"/>
+          </g>
+          <!-- legs -->
+          <rect x="176" y="292" width="26" height="42" rx="12" fill="url(#botShell)" stroke="#9fb4cf" stroke-width="2"/>
+          <rect x="222" y="292" width="26" height="42" rx="12" fill="url(#botShell)" stroke="#9fb4cf" stroke-width="2"/>
+          <rect x="166" y="326" width="42" height="18" rx="9" fill="#41d9ff" opacity=".85"/>
+          <rect x="216" y="326" width="42" height="18" rx="9" fill="#41d9ff" opacity=".85"/>
+          <!-- body -->
+          <rect x="156" y="200" width="112" height="102" rx="30" fill="url(#botShell)" stroke="#9fb4cf" stroke-width="2"/>
+          <circle cx="212" cy="244" r="17" fill="#0b1a2e"/>
+          <circle class="core" cx="212" cy="244" r="9" fill="#41d9ff"/>
+          <!-- arm to key -->
+          <path d="M162 232 q-26 16 -30 44" fill="none" stroke="url(#botShell)" stroke-width="17" stroke-linecap="round"/>
+          <circle cx="132" cy="280" r="11" fill="#41d9ff"/>
+          <!-- free arm -->
+          <path class="wave-arm" d="M264 232 q26 8 30 -18" fill="none" stroke="url(#botShell)" stroke-width="17" stroke-linecap="round"/>
+          <circle cx="296" cy="210" r="11" fill="#f5c542"/>
+          <!-- head -->
+          <g class="head">
+            <rect x="150" y="106" width="124" height="96" rx="34" fill="url(#botShell)" stroke="#9fb4cf" stroke-width="2"/>
+            <rect x="164" y="122" width="96" height="60" rx="26" fill="#0b1a2e"/>
+            <g class="eyes">
+              <rect x="182" y="140" width="14" height="24" rx="7" fill="#41d9ff"/>
+              <rect x="228" y="140" width="14" height="24" rx="7" fill="#41d9ff"/>
+            </g>
+            <line x1="212" y1="106" x2="212" y2="86" stroke="#9fb4cf" stroke-width="4"/>
+            <circle class="antenna" cx="212" cy="80" r="8" fill="#f5c542"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats" aria-label="Quick numbers">
+  <div class="stat glass"><span class="stat-num">46/46</span><span class="stat-label">QRShield tests passing</span></div>
+  <div class="stat glass"><span class="stat-num">15+</span><span class="stat-label">vuln classes in my scanner</span></div>
+  <div class="stat glass"><span class="stat-num">36</span><span class="stat-label">tests across my 4 CLI security tools</span></div>
+  <div class="stat glass"><span class="stat-num">54</span><span class="stat-label">public repos on GitHub</span></div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section" id="about">
+  <p class="sec-tag">01 · about me</p>
+  <div class="about glass">
+    <h2>Security tools that explain themselves</h2>
+    <p>I'm a final-year BCA student at New Horizon College of Engineering, Bengaluru (2024 - 2027, expected).
+      I care about the moment a tool tells you <em>why</em> something is risky. A scanner that only says
+      "dangerous" teaches nothing; one that shows the lookalike domain or the missing header makes the next
+      decision better. That's the thread through QRShield, my cyber-lab scanner and every tool below.</p>
+    <div class="chips">
+      <span class="chip">java</span><span class="chip">python</span><span class="chip">react</span>
+      <span class="chip">node</span><span class="chip">cloud</span><span class="chip">local LLMs</span>
+      <span class="chip">web &amp; app security</span><span class="chip">phishing detection</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTERNSHIP ============ -->
+<section class="section" id="internship">
+  <p class="sec-tag">02 · internship</p>
+  <h2>Zephyr Technologies</h2>
+  <div class="xp glass">
+    <div class="xp-row">
+      <p class="xp-when">27 jul - 27 sep 2026</p>
+      <div>
+        <p class="xp-what">Cybersecurity Intern</p>
+        <p class="xp-detail">Built QRShield end to end during the internship: threat rules, on-device scanning,
+          report export, test suite. Shipped and publicly live - details and screenshots in the projects section.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPANY ============ -->
+<section class="section" id="company">
+  <p class="sec-tag">03 · my company</p>
+  <h2>RaksHex</h2>
+  <div class="xp glass">
+    <div class="xp-row">
+      <p class="xp-when">founder project · private beta</p>
+      <div>
+        <p class="xp-what">AI action control plane · <a href="https://rakshex.in" target="_blank" rel="noopener">rakshex.in</a></p>
+        <p class="xp-detail">RaksHex evaluates consequential AI-agent actions before execution: it checks delegated
+          authority and policy, releases brokered credentials only after an ALLOW, and records every decision in a
+          tamper-evident Action Ledger. Honest status: private beta, under active build - not a finished product.</p>
+      </div>
+    </div>
+    <img class="shot" src="assets/shot-rakshex.png" alt="RaksHex landing page: AI agents don't just generate, they act - control what happens next" loading="lazy">
+    <div class="card-links">
+      <a class="btn btn-fill btn-sm" href="https://rakshex.in" target="_blank" rel="noopener">site</a>
+      <a class="btn btn-line btn-sm" href="https://github.com/Akshu1245/Rakshex-complete-codebase" target="_blank" rel="noopener">source</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section class="section" id="projects">
+  <p class="sec-tag">04 · projects</p>
+  <h2>Things I built and shipped</h2>
+  <div class="grid">
+    <article class="card glass">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3zM18 18h3v3h-3z"/></svg></div>
+      <div class="card-tags"><span class="tag tag-live">live</span><span class="tag">internship project</span><span class="tag">open source</span></div>
+      <h3>QRShield <span class="dim">- QR phishing detection</span></h3>
+      <p>Scans QR codes and links, then explains the warning signs before you pay, log in, or connect.
+        Decodes images and camera frames on-device with jsQR - nothing is uploaded. Scores URLs and UPI
+        payment details with transparent rules, and says "not checked" instead of "safe" when a check can't run.</p>
+      <ul>
+        <li>Rule-based risk scoring for URLs, UPI links and Wi-Fi configs</li>
+        <li>PDF + text report export, local-only scan history</li>
+        <li>46-test suite, camera permission handling with upload fallback</li>
+      </ul>
+      <img class="shot" src="assets/qrshield-desktop.png" alt="QRShield interface: scan a link or QR payload, with the verdict panel showing No scan yet" loading="lazy">
+      <p class="stack">vite · jsqr · jspdf · vanilla js · vercel</p>
+      <div class="card-links">
+        <a class="btn btn-fill btn-sm" href="https://qrshield-lac.vercel.app" target="_blank" rel="noopener">live app</a>
+        <a class="btn btn-line btn-sm" href="https://github.com/Akshu1245/Qrtest-" target="_blank" rel="noopener">source</a>
+      </div>
+    </article>
+
+    <article class="card glass">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v12H4z"/><path d="M7 9l3 3-3 3M12 15h5"/></svg></div>
+      <div class="card-tags"><span class="tag">open source</span><span class="tag">security toolkit</span></div>
+      <h3>akshay-cyber-lab</h3>
+      <p>Personal pentest and security-automation toolkit. Scans source code for <strong>15+ vulnerability
+        classes</strong> - hardcoded secrets, injection, weak crypto, bad config - and can auto-fix common issues.
+        SARIF output feeds GitHub code scanning.</p>
+      <div class="term" aria-label="Real terminal output from security-auditor.py">
+        <p class="term-cmd">$ python3 tools/security-auditor.py ./tools</p>
+        <p class="term-out">Files scanned: 3 · Total findings: 24</p>
+        <p class="term-out"><span class="term-sev">[CRITICAL]</span> SEC021: Unsafe eval() Usage</p>
+        <p class="term-out"><span class="term-sev">[HIGH]</span> SEC040: Debug Mode Enabled</p>
+        <p class="term-dim">real output: self-scan of the toolkit, 14 Nov 2026</p>
+      </div>
+      <p class="stack">python · sarif · github actions</p>
+      <div class="card-links">
+        <a class="btn btn-line btn-sm" href="https://github.com/Akshu1245/akshay-cyber-lab" target="_blank" rel="noopener">source</a>
+      </div>
+    </article>
+
+    <article class="card glass">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15" r="1.6"/></svg></div>
+      <div class="card-tags"><span class="tag">hackathon · ibw 2025</span><span class="tag">zero-knowledge</span></div>
+      <h3>WhisperCache</h3>
+      <p>Zero-knowledge memory layer for AI agents, built with a teammate for the Midnight privacy track at
+        India Blockchain Week 2025. Memories are encrypted on-device (XChaCha20-Poly1305); the AI queries
+        patterns through <strong>Groth16 ZK proofs</strong> and never sees raw text.</p>
+      <ul>
+        <li>Client-side encryption, server stores ciphertext only</li>
+        <li>ZK circuit proves query matches without revealing content</li>
+      </ul>
+      <img class="shot" src="assets/shot-whispercache.png" alt="WhisperCache repository: privacy-first AI memory layer with zero-knowledge proofs, built on Midnight and Cardano" loading="lazy">
+      <p class="stack">typescript · snarkjs · xchacha20</p>
+      <div class="card-links">
+        <a class="btn btn-line btn-sm" href="https://github.com/Akshu1245/WhisperCache" target="_blank" rel="noopener">source</a>
+      </div>
+    </article>
+
+    <article class="card glass">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.2 7.8-8 9-4.8-1.2-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div class="card-tags"><span class="tag">hackathon build</span><span class="tag">vendor risk · dpdp</span></div>
+      <h3>VendorGuard AI</h3>
+      <p>Vendor access control for DPDP-compliance work in India: OSINT checks, DPDP section mapping,
+        contract analysis, and a real-breach back-test against public Indian breach cases. Built with a
+        team for a hackathon; the full codebase is public.</p>
+      <ul>
+        <li>FastAPI backend, IsolationForest scoring, 16 DPDP contract rules</li>
+        <li>Demo deployment is offline for now - walkthrough video and code in the repo</li>
+      </ul>
+      <img class="shot" src="assets/shot-vendorguard.png" alt="VendorGuard Executive Board view: vendors by band, worst offenders leaderboard and DPDP clauses triggered" loading="lazy">
+      <p class="stack">fastapi · react · tailwind · docker</p>
+      <div class="card-links">
+        <a class="btn btn-line btn-sm" href="https://github.com/Akshu1245/vendorgaurd" target="_blank" rel="noopener">source</a>
+      </div>
+    </article>
+
+    <article class="card glass">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="5"/></svg></div>
+      <div class="card-tags"><span class="tag">ui redesign forks</span><span class="tag">credit intact</span></div>
+      <h3>Open-source UI redesigns</h3>
+      <p>Three permissively-licensed security projects I forked and re-themed, keeping upstream credit and
+        licenses intact: <strong>gophish</strong> (dark-ops admin theme), <strong>zxcvbn</strong> (rebuilt the broken
+        demo page as an interactive strength demo), <strong>phishing-detector</strong> (field-manual UI theme).
+        Engine code untouched in all three.</p>
+      <img class="shot" src="assets/shot-forks.png" alt="Forked gophish admin dashboard re-themed with a dark ops interface" loading="lazy">
+      <p class="stack">go · javascript · flask · css</p>
+      <div class="card-links">
+        <a class="btn btn-line btn-sm" href="https://github.com/Akshu1245/gophish" target="_blank" rel="noopener">gophish</a>
+        <a class="btn btn-line btn-sm" href="https://github.com/Akshu1245/zxcvbn" target="_blank" rel="noopener">zxcvbn</a>
+        <a class="btn btn-line btn-sm" href="https://github.com/Akshu1245/phishing-detector" target="_blank" rel="noopener">detector</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ TOOLS ============ -->
+<section class="section" id="tools">
+  <p class="sec-tag">05 · tools</p>
+  <h2>CLI security tools I wrote</h2>
+  <p class="sec-sub">Four small, sharp command-line tools. Each runs offline, has tests (36 passing across the set),
+    all four are public on GitHub.</p>
+  <div class="grid grid-4">
+    <article class="tool glass">
+      <p class="t-cmd">$ phishcheck <span class="dim">https://example.com</span></p>
+      <p class="t-what">URL phishing heuristics: lookalike domains, punycode, redirect chains, risky TLDs. Prints the reasons, not just a verdict.</p>
+      <p class="t-link"><a href="https://github.com/Akshu1245/phishcheck" target="_blank" rel="noopener">source on github</a></p>
+    </article>
+    <article class="tool glass">
+      <p class="t-cmd">$ headercheck <span class="dim">github.com</span></p>
+      <p class="t-what">Grades HTTP security headers (CSP, HSTS, X-Frame-Options and friends) with a fix hint per miss. Live run on github.com scored B.</p>
+      <p class="t-link"><a href="https://github.com/Akshu1245/headercheck" target="_blank" rel="noopener">source on github</a></p>
+    </article>
+    <article class="tool glass">
+      <p class="t-cmd">$ passaudit <span class="dim">"correct horse"</span></p>
+      <p class="t-what">Password strength audit with pattern breakdown (repeats, sequences, dates, dictionary words) and crack-time estimates. Nothing leaves the machine.</p>
+      <p class="t-link"><a href="https://github.com/Akshu1245/passaudit" target="_blank" rel="noopener">source on github</a></p>
+    </article>
+    <article class="tool glass">
+      <p class="t-cmd">$ logwatch <span class="dim">auth.log</span></p>
+      <p class="t-what">Watches auth logs for brute-force bursts and impossible-travel jumps, then prints a short incident summary you can paste into a report.</p>
+      <p class="t-link"><a href="https://github.com/Akshu1245/logwatch" target="_blank" rel="noopener">source on github</a></p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section" id="contact">
+  <p class="sec-tag">06 · contact</p>
+  <div class="contact glass">
+    <h2>Let's talk internships</h2>
+    <p>Open to cybersecurity internships - remote or Bengaluru. Fastest reply is email.</p>
+    <div class="contact-row">
+      <a class="btn btn-fill" href="mailto:akshaykammar31@gmail.com">akshaykammar31@gmail.com</a>
+      <button class="btn btn-line" id="copyEmail" data-email="akshaykammar31@gmail.com">copy</button>
+    </div>
+    <div class="contact-links">
+      <a href="https://github.com/Akshu1245" target="_blank" rel="noopener">github</a>
+      <a href="https://www.linkedin.com/in/k-s-akshay-4a1b4b313" target="_blank" rel="noopener">linkedin</a>
+      <a href="https://rakshex.in" target="_blank" rel="noopener">rakshex</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Built by K S Akshay. Background field and robot illustration are original code; design direction
+    references two Pinterest concept pins, credited in the README. No trackers, no frameworks, one HTML file.</p>
+</footer>
+
+<script src="bg-field.js" data-accent="#41d9ff"></script>
+<script src="main.js"></script>
+</body>
+</html>
