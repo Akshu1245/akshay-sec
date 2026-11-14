@@ -26,7 +26,7 @@
   function render() {
     document.documentElement.classList.toggle('motion-paused', paused);
     toggle.setAttribute('aria-pressed', String(paused));
-    toggle.setAttribute('aria-label', paused ? 'Resume ambient background motion' : 'Pause ambient background motion');
+    toggle.setAttribute('aria-label', paused ? 'Resume motion' : 'Pause motion');
     toggle.replaceChildren();
 
     const symbol = document.createElement('span');
