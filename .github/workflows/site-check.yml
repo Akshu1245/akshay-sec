@@ -31,10 +31,19 @@ jobs:
           node --check engines.mjs
           node --check project-data.mjs
           node --check scripts/check-site.mjs
+          node --check scripts/build-site.mjs
       - name: Internal links, real assets and attribution
         run: node scripts/check-site.mjs
       - name: Deterministic engine tests
         run: node --test tests/engines.test.mjs
+      - name: Prepare Vercel-equivalent static output
+        run: |
+          node scripts/build-site.mjs
+          test -f dist/index.html
+          test -f dist/workbench.html
+          test -f dist/case-study.html
+          test -f dist/404.html
+          test ! -e dist/tests/engines.test.mjs
       - name: Install browser QA dependency
         run: npm install --no-package-lock --no-audit --no-fund
       - name: Install Chromium
@@ -46,17 +55,16 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: akshay-sec-visual-review
-          path: test-results/visual
+          path: |
+            test-results/visual
+            test-results/visual-extended
           if-no-files-found: ignore
           retention-days: 7
       - name: Package verified static site
         if: github.ref == 'refs/heads/main'
         run: |
           set -euo pipefail
-          mkdir -p release
-          cp index.html case-study.html workbench.html style.css studio.css main.js site-shell.js bg-field.js case-study.mjs workbench.mjs engines.mjs project-data.mjs README.md release/
-          cp -R assets release/assets
-          (cd release && zip -q -r ../akshay-sec-release.zip .)
+          (cd dist && zip -q -r ../akshay-sec-release.zip .)
           unzip -t akshay-sec-release.zip
       - name: Upload deployment-ready release
         if: github.ref == 'refs/heads/main'
