@@ -2,7 +2,7 @@ name: Security portfolio QA
 
 on:
   push:
-    branches: [main, portfolio-final-quality-pass-2026-11-14]
+    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -49,3 +49,19 @@ jobs:
           path: test-results/visual
           if-no-files-found: ignore
           retention-days: 7
+      - name: Package verified static site
+        if: github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          cp index.html case-study.html workbench.html style.css studio.css main.js site-shell.js bg-field.js case-study.mjs workbench.mjs engines.mjs project-data.mjs README.md release/
+          cp -R assets release/assets
+          (cd release && zip -q -r ../akshay-sec-release.zip .)
+          unzip -t akshay-sec-release.zip
+      - name: Upload deployment-ready release
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: akshay-sec-deployable-site
+          path: akshay-sec-release.zip
+          retention-days: 14
