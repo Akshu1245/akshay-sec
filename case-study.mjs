@@ -40,6 +40,19 @@ function list(values) {
 }
 function renderCase(project) {
   document.title = project.title + ' | Case File · K S Akshay';
+  const description = document.querySelector('meta[name="description"]');
+  if (description) description.content = project.subtitle+' Read implementation notes, evidence and limitations.';
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.content = project.title+' | Cybersecurity Case File';
+  const ogDescription = document.querySelector('meta[property="og:description"]');
+  if (ogDescription) ogDescription.content = project.subtitle;
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.rel = 'canonical';
+    document.head.appendChild(canonical);
+  }
+  canonical.href = 'https://akshay-sec.vercel.app/case-study.html?project='+encodeURIComponent(slug);
   label.textContent = project.title;
   root.replaceChildren();
 
