@@ -35,7 +35,7 @@ for(const slug of orderedProjects){
  '</article>'
  ].join('\n');
  const others=orderedProjects.filter(x=>x!==slug).slice(0,3).map(id=>{const v=projects[id];return '<a class="case-next-link glass" href="cases/'+id+'.html"><span class="case-next-index">'+e(v.index)+' / '+e(v.category)+'</span><h3>'+e(v.title)+'</h3><p>'+e(v.tagline)+'</p><span class="case-next-arrow">Read the case file ↗</span></a>'}).join('\n');
- let html=base;
+ let html=base.replace(/<meta name="robots" content="noindex,follow">\s*/,''); // Only the old JS route should be noindex.
  const start=html.indexOf('  <div id="caseRoot">');
  const end=html.indexOf('  <section class="next-cases"',start);
  if(start<0||end<0)throw Error('case-study.html template structure changed');
