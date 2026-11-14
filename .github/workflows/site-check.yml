@@ -1,4 +1,4 @@
-name: Portfolio quality checks
+name: Security portfolio QA
 
 on:
   push:
@@ -13,16 +13,39 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 16
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: JavaScript syntax
         run: |
           node --check main.js
+          node --check site-shell.js
           node --check bg-field.js
+          node --check case-study.mjs
+          node --check workbench.mjs
+          node --check engines.mjs
+          node --check project-data.mjs
           node --check scripts/check-site.mjs
-      - name: Site links and assets
+      - name: Internal links, real assets and attribution
         run: node scripts/check-site.mjs
+      - name: Deterministic engine tests
+        run: node --test tests/engines.test.mjs
+      - name: Install browser QA dependency
+        run: npm install --no-package-lock --no-audit --no-fund
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Desktop and mobile browser tests
+        run: npx playwright test
+      - name: Upload browser captures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: akshay-sec-visual-review
+          path: test-results/visual
+          if-no-files-found: ignore
+          retention-days: 7
