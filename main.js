@@ -52,7 +52,7 @@ copyBtn.addEventListener('click', async () => {
 });
 
 // scrollspy
-const spy = [...document.querySelectorAll('.nav-links a')];
+const spy = [...document.querySelectorAll('.nav-links a[href^="#"]')];
 const secs = spy.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
 addEventListener('scroll', () => {
   const y = scrollY + 140;
