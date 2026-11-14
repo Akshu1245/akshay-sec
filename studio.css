@@ -386,3 +386,27 @@ a { text-underline-offset: 4px; }
   }
   .nav .motion-toggle + .nav-toggle { margin-left:0; flex-shrink:0; }
 }
+
+/* Cross-viewport visual QA: stable screenshot frames, reliable focus and controls. */
+:root { color-scheme:dark; }
+.card .shot-link { display:block; width:100%; max-width:100%; overflow:hidden; border:1px solid rgba(125,197,238,.17); border-radius:11px; background:#06101b; }
+.card .shot-link .shot { display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:contain; object-position:center; margin:0; border:0; background:#06101b; transition:transform .22s ease; }
+.card .shot-link:hover { border-color:rgba(85,227,236,.55); }
+.case-visual .case-image { object-fit:contain; background:#06101b; }
+.case-next-link h3 { overflow-wrap:anywhere; }
+.feature-cmd { min-height:54px; display:flex; flex-direction:column; justify-content:center; }
+.sample-row button,.password-input button { min-height:44px; }
+.tool-demo-link { min-height:32px; display:inline-flex; align-items:center; }
+.t-link a { display:inline-flex; align-items:center; min-height:32px; }
+.breadcrumb a { display:inline-flex; align-items:center; min-height:28px; }
+.nav-links a { display:inline-flex; align-items:center; min-height:28px; }
+:where(a,button,input,select,textarea):focus-visible { outline:3px solid #ffdd76; outline-offset:3px; }
+@media(max-width:600px) {
+  .lab-tabs { scroll-snap-type:x proximity; scrollbar-color:#3c8caa #081727; scrollbar-width:thin; }
+  .lab-tabs .lab-tab { scroll-snap-align:start; flex-shrink:0; }
+  .hero-art,.hero-panel { max-width:100%; }
+  .feature-commands { gap:8px; }
+  .feature-cmd { min-height:58px; }
+  .contact-row .btn { min-height:44px; justify-content:center; }
+}
+@media(prefers-reduced-motion:reduce) { .card .shot-link .shot { transition:none; } }
