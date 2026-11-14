@@ -206,30 +206,62 @@
   }
 
   const accent = (document.currentScript && document.currentScript.dataset.accent) || '#41d9ff';
+  const video = document.querySelector('.bg-video');
   build();
+
+  let raf = null;
+  const started = performance.now();
+  const loop = now => {
+    frame((now - started) / 1000);
+    raf = requestAnimationFrame(loop);
+  };
+  const stopCanvas = () => {
+    if (raf !== null) cancelAnimationFrame(raf);
+    raf = null;
+  };
+  const startCanvas = () => {
+    canvas.classList.add('is-active');
+    video?.classList.add('is-unavailable');
+    if (!document.hidden && raf === null) raf = requestAnimationFrame(loop);
+  };
+
   if (stepMode) {
-    window.__bgStep = (t) => frame(t);
-    window.__bgStep(1.2);
+    canvas.classList.add('is-active');
+    window.__bgStep = t => frame(t);
+    frame(1.2);
   } else if (reduce) {
-    frame(0.7); // static field (video hidden under reduced motion)
-  } else if (hasVideoBg) {
-    // video background is primary; canvas stays off
-    canvas.remove();
+    canvas.classList.add('is-active');
+    frame(0.7);
+  } else if (video) {
+    // If autoplay is blocked or this MP4 is unsupported, use live canvas animation.
+    // Do not leave a motionless poster where the background should be running.
+    video.addEventListener('error', startCanvas);
+    video.querySelector('source')?.addEventListener('error', startCanvas);
+    video.addEventListener('playing', () => {
+      stopCanvas();
+      canvas.classList.remove('is-active');
+      video.classList.remove('is-unavailable');
+    });
+    if (video.error || video.networkState === 3) startCanvas();
+    else {
+      const playback = video.play();
+      if (playback && typeof playback.catch === 'function') playback.catch(startCanvas);
+    }
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopCanvas();
+      else if (canvas.classList.contains('is-active')) startCanvas();
+    });
   } else {
-    let raf = null;
-    const t0 = performance.now();
-    const loop = (now) => {
-      frame((now - t0) / 1000);
-      raf = requestAnimationFrame(loop);
-    };
-    const start = () => { if (raf === null) raf = requestAnimationFrame(loop); };
-    const stop = () => { if (raf !== null) { cancelAnimationFrame(raf); raf = null; } };
-    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
-    start();
+    startCanvas();
+    document.addEventListener('visibilitychange', () => document.hidden ? stopCanvas() : startCanvas());
   }
+
   let rto = null;
   addEventListener('resize', () => {
     clearTimeout(rto);
-    rto = setTimeout(() => { build(); if (reduce && !stepMode) frame(0.7); }, 180);
+    rto = setTimeout(() => {
+      build();
+      if (reduce && !stepMode) frame(0.7);
+    }, 180);
   }, { passive: true });
 })();
