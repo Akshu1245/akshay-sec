@@ -10,6 +10,9 @@ test('home has real project paths, a working navigation and full-size screenshot
   await expect(page.locator('a.project-case-link')).toHaveCount(5);
   await expect(page.locator('a.shot-link')).toHaveCount(6);
   await expect(page.locator('#company')).toContainText('no paying customers');
+  // A full-page screenshot or disabled scroll JS must not show blank content.
+  const projectOpacity=await page.locator('#projects').evaluate(el=>Number(getComputedStyle(el).opacity));
+  expect(projectOpacity).toBeGreaterThan(0.99);
   expect(errors).toEqual([]);
   mkdirSync('test-results/visual',{recursive:true});
   await page.screenshot({path:'test-results/visual/home-desktop.png',fullPage:true,animations:'disabled'});
