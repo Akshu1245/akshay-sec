@@ -180,6 +180,7 @@ for(const width of [320,375,390,430,768,1024,1280,1440]) {
 test('not-found route keeps usable navigation and is excluded from search indexes',async({page})=>{
   await page.setViewportSize({width:390,height:844});
   await page.goto('/404.html');
+  expect(await page.locator('#motionToggle').evaluate(el=>el.parentElement.classList.contains('nav'))).toBe(true);
   await expect(page.getByRole('heading',{name:"This path isn't in the archive."})).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content','noindex');
   await expect(page.getByRole('link',{name:/Back to the portfolio/i})).toHaveAttribute('href','index.html');

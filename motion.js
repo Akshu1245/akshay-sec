@@ -10,7 +10,18 @@
   toggle.type = 'button';
   toggle.className = 'motion-toggle';
   toggle.id = 'motionToggle';
-  document.body.append(toggle);
+  const mobile = window.matchMedia('(max-width: 600px)');
+  const nav = document.querySelector('.nav');
+  const menuButton = document.getElementById('navToggle');
+  function positionToggle() {
+    if (mobile.matches && nav && menuButton) {
+      nav.insertBefore(toggle, menuButton);
+    } else {
+      document.body.append(toggle);
+    }
+  }
+  positionToggle();
+  mobile.addEventListener('change', positionToggle);
 
   function render() {
     document.documentElement.classList.toggle('motion-paused', paused);

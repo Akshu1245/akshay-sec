@@ -374,3 +374,15 @@ a { text-underline-offset: 4px; }
 .not-found-content p:not(.sec-tag) { font-size:16px; color:var(--muted); max-width:62ch; margin:16px 0 28px; }
 .missing-symbol { font:12px var(--mono); color:#9ad6de; letter-spacing:.14em; margin-bottom:24px; }
 .missing-symbol span { color:#f4ce77; }
+
+/* The pause control lives alongside the hamburger on phones, never over content. */
+@media (max-width:600px) {
+  .nav .motion-toggle {
+    position:static; margin-left:auto; flex-shrink:0;
+    width:44px; height:44px; min-width:44px;
+    border-color:rgba(118,215,230,.24);
+    box-shadow:none;
+    background:rgba(6,22,37,.65);
+  }
+  .nav .motion-toggle + .nav-toggle { margin-left:0; flex-shrink:0; }
+}
