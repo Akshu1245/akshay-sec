@@ -360,3 +360,17 @@ a { text-underline-offset: 4px; }
 
 /* Keep content fully visible when an animated reveal is paused mid-entry. */
 .motion-paused .reveal.in { animation:none !important; opacity:1 !important; transform:none !important; }
+
+/* Motion control: small, non-obscuring icon on phones, full label on desktop. */
+@media (max-width:600px) {
+  .motion-toggle { width:44px; height:44px; min-width:44px; padding:0; justify-content:center; }
+  .motion-toggle > span:not(.motion-symbol) { display:none; }
+  .motion-symbol { font-size:17px; }
+}
+.not-found-page .inner-main { min-height:calc(100dvh - 135px); display:flex; align-items:center; }
+.not-found-content { width:100%; padding:clamp(25px,6vw,70px); position:relative; overflow:hidden; }
+.not-found-content:after { content:""; position:absolute; width:360px; height:360px; right:-170px; top:-160px; border:1px solid rgba(85,227,236,.15); border-radius:50%; pointer-events:none; }
+.not-found-content h1 { font:700 clamp(38px,6vw,76px)/1.05 var(--disp); letter-spacing:-.06em; max-width:800px; margin:14px 0; }
+.not-found-content p:not(.sec-tag) { font-size:16px; color:var(--muted); max-width:62ch; margin:16px 0 28px; }
+.missing-symbol { font:12px var(--mono); color:#9ad6de; letter-spacing:.14em; margin-bottom:24px; }
+.missing-symbol span { color:#f4ce77; }

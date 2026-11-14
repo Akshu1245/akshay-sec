@@ -89,3 +89,5 @@ The page designs were benchmarked against the information architecture of PortSw
 The current CSS/JS includes a user-controlled pause for the ambient motion, with the animation still **on by default**. Fonts are consistently loaded on home, case files and the workbench. The mobile hero begins with the name and role instead of burying them under the illustration. The cyber-lab output image is now bundled locally and its SHA matches the source repository.
 
 On Vercel, `vercel.json` supplies relevant security response headers. Deploy the repository's `main` branch as a **static website** (root directory `./`, no framework preset, no build command, no output override). Run the website and browser checks first. Publishing this GitHub code does not automatically update any disconnected Vercel project.
+
+The static release also includes a matching `404.html` for unknown paths and a smaller motion-pause control on phones. The complete build is browser-tested at eight viewport widths, with visual captures in GitHub Actions artifacts.

@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {projects,orderedProjects} from '../project-data.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
-const pages=['index.html','case-study.html','workbench.html'];
+const pages=['index.html','case-study.html','workbench.html','404.html'];
 const pageList=pages;
 const failures=[];
 const warnings=[];

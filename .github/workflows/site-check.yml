@@ -55,7 +55,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p release
-          cp index.html case-study.html workbench.html style.css studio.css main.js site-shell.js bg-field.js motion.js case-study.mjs workbench.mjs engines.mjs project-data.mjs README.md vercel.json robots.txt sitemap.xml release/
+          cp index.html case-study.html workbench.html 404.html style.css studio.css main.js site-shell.js bg-field.js motion.js case-study.mjs workbench.mjs engines.mjs project-data.mjs README.md vercel.json robots.txt sitemap.xml release/
           cp -R assets release/assets
           (cd release && zip -q -r ../akshay-sec-release.zip .)
           unzip -t akshay-sec-release.zip
