@@ -272,3 +272,14 @@ a { text-underline-offset: 4px; }
 @media(prefers-reduced-motion:reduce) {
  *, *:before, *:after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
 }
+
+/* Grid items must be allowed to shrink around horizontally scrollable tool tabs.
+   Without minmax(0,1fr), their min-content width can stretch a mobile viewport. */
+.lab-stage,.lab-sidebar,.lab-panel,.lab-layout,.workbench-header>div { min-width:0; }
+.lab-tabs { max-width:100%; }
+.demo-form,.demo-result { min-width:0; max-width:100%; }
+@media (max-width:800px) {
+  .lab-layout,.workbench-header { grid-template-columns:minmax(0,1fr); }
+  .lab-sidebar { max-width:100%; overflow:hidden; }
+  .lab-tabs { overflow-x:auto; overscroll-behavior-x:contain; scrollbar-width:thin; }
+}
