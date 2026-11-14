@@ -5,10 +5,13 @@
   "description": "Dependency-free static website; optional development checks use Playwright.",
   "scripts": {
     "test": "node --test tests/engines.test.mjs",
-    "check": "node scripts/check-site.mjs",
-    "test:browser": "playwright test"
+    "check": "node scripts/build-cases.mjs && node scripts/check-site.mjs",
+    "test:browser": "playwright test",
+    "build": "node scripts/build-site.mjs",
+    "preview": "python3 scripts/devserver.py 4173"
   },
   "devDependencies": {
-    "@playwright/test": "1.56.1"
+    "@playwright/test": "1.56.1",
+    "@axe-core/playwright": "4.14.0"
   }
 }
