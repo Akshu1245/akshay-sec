@@ -34,6 +34,7 @@ for(const slug of ['qrshield','cyberlab','whispercache','vendorguard','rakshex']
   await expect(p.locator('.case-main-column .case-block')).toHaveCount(5);
   await expect(p.locator('link[rel="canonical"]')).toHaveAttribute('href',new RegExp('/cases/'+slug+'\\.html$'));
   await expect(p.locator('meta[property="og:image"]')).toHaveAttribute('content',/^https:\/\//);
+  expect(await p.locator('meta[name="robots"][content*="noindex"]').count()).toBe(0);
   await c.close();
  });
 }
