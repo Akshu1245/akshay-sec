@@ -413,3 +413,11 @@ a { text-underline-offset: 4px; }
 
 /* WCAG: links embedded in footer text remain identifiable without color perception. */
 footer a, .studio-footer a { text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+
+/* Accessible motion icon: CSS bars/triangle, not decorative text in the button label. */
+.motion-symbol { position:relative; display:inline-block; flex:0 0 15px; width:15px; height:15px; font-size:0; }
+.motion-symbol::before,.motion-symbol::after { content:""; position:absolute; top:1px; height:13px; background:var(--aqua); border-radius:1px; }
+.motion-toggle[aria-pressed="false"] .motion-symbol::before { left:2px; width:4px; }
+.motion-toggle[aria-pressed="false"] .motion-symbol::after { left:9px; width:4px; }
+.motion-toggle[aria-pressed="true"] .motion-symbol::before { left:1px; top:1px; width:13px; clip-path:polygon(0 0, 100% 50%, 0 100%); }
+.motion-toggle[aria-pressed="true"] .motion-symbol::after { display:none; }
