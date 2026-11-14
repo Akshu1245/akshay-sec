@@ -38,7 +38,7 @@ for(const page of pages){
       check(ids.get(page).has(url.slice(1)),page+': broken local anchor '+url);
       continue;
     }
-    const [pathAndQuery,hash]=''+url.includes('#')?url.split('#'):[url,''];
+    const [pathAndQuery,hash]=url.includes('#')?url.split('#'):[url,''];
     const path=pathAndQuery.split('?')[0].replace(/^\//,'');
     check(!path.includes('..'),page+': path escapes root '+url);
     if(path) {
@@ -63,7 +63,7 @@ const home=content('index.html');
 const detail=content('case-study.html');
 const lab=content('workbench.html');
 check((home.match(/class="shot-link"/g)||[]).length===6,'Six real screenshot links must remain on the homepage');
-check((home.match(/class="project-case-link"/g)||[]).length===5,'Five project case-file links are required');
+check((home.match(/\bproject-case-link\b/g)||[]).length===5,'Five project case-file links are required');
 check(home.includes('no paying customers'),'RaksHex pre-revenue status missing');
 check(home.includes('pre-incorporation'),'RaksHex incorporation caveat missing');
 check(home.includes('workbench.html#phishcheck'),'Security workbench sample links missing');
