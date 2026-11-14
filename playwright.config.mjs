@@ -13,7 +13,7 @@ export default defineConfig({
     ...devices['Desktop Chrome']
   },
   webServer:{
-    command:'python3 -m http.server 4173 --bind 127.0.0.1',
+    command:'python3 scripts/devserver.py 4173',
     port:4173,
     reuseExistingServer:!process.env.CI,
     timeout:30000
