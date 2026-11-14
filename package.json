@@ -6,7 +6,9 @@
   "scripts": {
     "test": "node --test tests/engines.test.mjs",
     "check": "node scripts/check-site.mjs",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "build": "node scripts/build-site.mjs",
+    "test:visual": "playwright test tests/visual.spec.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1"
