@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="studio.css">
 </head>
 <body>
 <a class="skip-link" href="#main-content">skip to content</a>
@@ -33,6 +34,7 @@
     <a href="#internship">internship</a>
     <a href="#company">company</a>
     <a href="#projects">projects</a>
+    <a href="workbench.html">workbench</a>
     <a href="#tools">tools</a>
   </nav>
   <a class="btn btn-fill btn-sm nav-cta" href="#contact">get in touch</a>
@@ -44,6 +46,7 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="hero-text">
+    <p class="hero-overline"><i aria-hidden="true"></i> BENGALURU, INDIA <span aria-hidden="true">/</span> SOFTWARE &amp; SECURITY</p>
     <p class="chip glass"><span class="pulse-dot"></span>open to cybersecurity internships</p>
     <h1>K&nbsp;S<br>Akshay</h1>
     <p class="role">I check what things do <span class="hl">before they run</span>.</p>
@@ -51,9 +54,11 @@
       <strong>Zephyr Technologies</strong> I built <strong>QRShield</strong> - a QR &amp; link risk checker
       that decodes QR codes and runs its rules in your browser. I like security tools that explain themselves.</p>
     <div class="hero-cta">
-      <a class="btn btn-fill" href="#projects">view projects</a>
-      <a class="btn btn-line" href="#contact">get in touch</a>
+      <a class="btn btn-fill" href="#projects">Explore case files ↗</a>
+      <a class="btn btn-line" href="workbench.html">Try the workbench →</a>
+      <a class="btn btn-line" href="#contact">Email me</a>
     </div>
+    <p class="hero-tail"><span><strong>01</strong> / Learn by building</span><span><strong>02</strong> / Explain the findings</span><span><strong>03</strong> / Publish the evidence</span></p>
   </div>
 
   <!-- Original illustration: little guardian robot with a gold key and its padlock.
@@ -161,6 +166,16 @@
   </div>
 </section>
 
+<!-- ============ METHOD ============ -->
+<section class="section method-section" id="method">
+  <div class="section-heading"><div><p class="sec-tag">HOW I THINK</p><h2>Inspect. Reproduce. Explain.</h2></div></div>
+  <div class="method-grid">
+    <article class="method-card glass"><span class="method-n">01 / INSPECT</span><div><h3>Read what is actually there.</h3><p>Start with the input, the code and the system boundary. Don't assume a warning is proof.</p></div></article>
+    <article class="method-card glass"><span class="method-n">02 / REPRODUCE</span><div><h3>Make the finding observable.</h3><p>Use small test cases, controlled fixtures, and outputs someone else can check.</p></div></article>
+    <article class="method-card glass"><span class="method-n">03 / EXPLAIN</span><div><h3>Give the next person context.</h3><p>Show what fired, what wasn't checked, and the limits of the result.</p></div></article>
+  </div>
+</section>
+
 <!-- ============ INTERNSHIP ============ -->
 <section class="section" id="internship">
   <p class="sec-tag">02 · internship</p>
@@ -194,6 +209,7 @@
     <div class="card-links">
       <a class="btn btn-fill btn-sm" href="https://rakshex.in" target="_blank" rel="noopener">site</a>
       <a class="btn btn-line btn-sm" href="https://github.com/Akshu1245/Rakshex-complete-codebase" target="_blank" rel="noopener">source</a>
+      <a class="btn btn-line btn-sm project-case-link" href="case-study.html?project=rakshex">Case file ↗</a>
     </div>
   </div>
 </section>
@@ -201,7 +217,8 @@
 <!-- ============ PROJECTS ============ -->
 <section class="section" id="projects">
   <p class="sec-tag">04 · projects</p>
-  <h2>Things I built and shipped</h2>
+  <h2>Projects, with the evidence attached.</h2>
+  <p class="sec-sub">Each case file explains what the project actually does, what you can inspect, and what still needs work.</p>
   <div class="grid">
     <article class="card glass">
       <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3zM18 18h3v3h-3z"/></svg></div>
@@ -220,6 +237,7 @@
       <div class="card-links">
         <a class="btn btn-fill btn-sm" href="https://qrshield-lac.vercel.app" target="_blank" rel="noopener">live app</a>
         <a class="btn btn-line btn-sm" href="https://github.com/Akshu1245/Qrtest-" target="_blank" rel="noopener">source</a>
+        <a class="btn btn-line btn-sm project-case-link" href="case-study.html?project=qrshield">Case file ↗</a>
       </div>
     </article>
 
@@ -241,6 +259,7 @@
       <p class="stack">python · sarif · github actions</p>
       <div class="card-links">
         <a class="btn btn-line btn-sm" href="https://github.com/Akshu1245/akshay-cyber-lab" target="_blank" rel="noopener">source</a>
+        <a class="btn btn-line btn-sm project-case-link" href="case-study.html?project=cyberlab">Case file ↗</a>
       </div>
     </article>
 
@@ -257,6 +276,7 @@
       <p class="stack">typescript · snarkjs · xchacha20</p>
       <div class="card-links">
         <a class="btn btn-line btn-sm" href="https://github.com/Akshu1245/WhisperCache" target="_blank" rel="noopener">source</a>
+        <a class="btn btn-line btn-sm project-case-link" href="case-study.html?project=whispercache">Case file ↗</a>
       </div>
     </article>
 
@@ -275,6 +295,7 @@
       <p class="stack">fastapi · react · tailwind · docker</p>
       <div class="card-links">
         <a class="btn btn-line btn-sm" href="https://github.com/Akshu1245/vendorgaurd" target="_blank" rel="noopener">source</a>
+        <a class="btn btn-line btn-sm project-case-link" href="case-study.html?project=vendorguard">Case file ↗</a>
       </div>
     </article>
 
@@ -297,6 +318,24 @@
   </div>
 </section>
 
+<!-- ============ WORKBENCH ============ -->
+<section class="section" id="workbench">
+  <div class="feature-panel glass">
+    <div>
+      <p class="sec-tag">LIVE EXPLANATIONS / FICTIONAL INPUTS</p>
+      <h2>Go beyond a screenshot.</h2>
+      <p>Open a small browser-based workbench for link inspection, security-header fixtures, password patterns and SSH auth logs. Every demo is labeled, deterministic and linked to its actual Python repository.</p>
+      <a class="btn btn-fill" href="workbench.html">Open the security workbench ↗</a>
+    </div>
+    <div class="feature-commands" aria-label="Available demo exercises">
+      <a class="feature-cmd" href="workbench.html#phishcheck"><span>01 / URL</span>phishcheck ↗</a>
+      <a class="feature-cmd" href="workbench.html#headercheck"><span>02 / HEADERS</span>headercheck ↗</a>
+      <a class="feature-cmd" href="workbench.html#passaudit"><span>03 / PATTERNS</span>passaudit ↗</a>
+      <a class="feature-cmd" href="workbench.html#logwatch"><span>04 / AUTH</span>logwatch ↗</a>
+    </div>
+  </div>
+</section>
+
 <!-- ============ TOOLS ============ -->
 <section class="section" id="tools">
   <p class="sec-tag">05 · tools</p>
@@ -307,21 +346,25 @@
       <p class="t-cmd">$ python3 phishcheck.py <span class="dim">https://example.com</span></p>
       <p class="t-what">URL phishing heuristics: lookalike domains, punycode, redirect chains, risky TLDs. Prints the reasons, not just a verdict.</p>
       <p class="t-link"><a href="https://github.com/Akshu1245/phishcheck" target="_blank" rel="noopener">source on github</a></p>
+      <a class="tool-demo-link" href="workbench.html#phishcheck">Try the browser demo ↗</a>
     </article>
     <article class="tool glass">
       <p class="t-cmd">$ python3 headercheck.py <span class="dim">github.com</span></p>
       <p class="t-what">Grades HTTP security headers (CSP, HSTS, X-Frame-Options and friends) with a fix hint per miss. Live run on github.com scored B.</p>
       <p class="t-link"><a href="https://github.com/Akshu1245/headercheck" target="_blank" rel="noopener">source on github</a></p>
+      <a class="tool-demo-link" href="workbench.html#headercheck">Try the browser demo ↗</a>
     </article>
     <article class="tool glass">
       <p class="t-cmd">$ python3 passaudit.py <span class="dim">"correct horse"</span></p>
       <p class="t-what">Password strength audit with pattern breakdown (repeats, sequences, dates, dictionary words) and crack-time estimates. Nothing leaves the machine.</p>
       <p class="t-link"><a href="https://github.com/Akshu1245/passaudit" target="_blank" rel="noopener">source on github</a></p>
+      <a class="tool-demo-link" href="workbench.html#passaudit">Try the browser demo ↗</a>
     </article>
     <article class="tool glass">
       <p class="t-cmd">$ python3 logwatch.py <span class="dim">auth.log</span></p>
       <p class="t-what">Checks SSH authentication logs for failed-login bursts and successful logins after repeated failures, then prints a short incident summary.</p>
       <p class="t-link"><a href="https://github.com/Akshu1245/logwatch" target="_blank" rel="noopener">source on github</a></p>
+      <a class="tool-demo-link" href="workbench.html#logwatch">Try the browser demo ↗</a>
     </article>
   </div>
 </section>
@@ -349,7 +392,7 @@
 
 <footer>
   <p>Built by K S Akshay. Background field and robot illustration are original code; design direction
-    references two Pinterest concept pins, credited in the README. No trackers, no frameworks, one HTML file.
+    references <a href="https://pin.it/4MVrrNHI2" target="_blank" rel="noopener noreferrer">HUD inspiration</a> and <a href="https://pin.it/3iy7frADX" target="_blank" rel="noopener noreferrer">robot/UI inspiration</a>. No copied pin assets. No trackers or frameworks.
     <a href="https://github.com/Akshu1245/akshay-sec" target="_blank" rel="noopener">source on github</a></p>
 </footer>
 
