@@ -87,3 +87,103 @@ test('keyboard tabs and reduced-motion view remain usable',async({page})=>{
   await expect(page.getByRole('tab',{name:/headercheck/})).toHaveAttribute('aria-selected','true');
   await expect(page.locator('#panel-headercheck')).toBeVisible();
 });
+
+test('all project evidence images have local, decoded assets',async({page})=>{
+  await page.goto('/');
+  // Images are intentionally lazy; request decoding before judging their integrity.
+  const images=await page.locator('.shot').evaluateAll(async imgs=>{
+    return Promise.all(imgs.map(async img=>{
+      img.loading='eager';
+      try { await img.decode(); } catch {}
+      return {src:img.getAttribute('src'),loaded:img.complete&&img.naturalWidth>0};
+    }));
+  });
+  expect(images).toHaveLength(6);
+  expect(images.every(image=>image.loaded)).toBe(true);
+  expect(images.some(image=>image.src==='assets/shot-cyberlab.png')).toBe(true);
+  await page.goto('/case-study.html?project=cyberlab');
+  await expect(page.locator('.case-image')).toHaveAttribute('src','assets/shot-cyberlab.png');
+  expect(await page.locator('.case-image').evaluate(el=>el.complete&&el.naturalWidth>0)).toBe(true);
+});
+
+test('ambient animation can be paused and restored without deleting page content',async({page})=>{
+  await page.goto('/');
+  const motion=page.locator('#motionToggle');
+  await expect(motion).toBeVisible();
+  await expect(motion).toHaveAttribute('aria-pressed','false');
+  await motion.click();
+  await expect(motion).toHaveAttribute('aria-pressed','true');
+  await expect(page.locator('html')).toHaveClass(/motion-paused/);
+  expect(await page.locator('.bg-video').evaluate(video=>video.paused)).toBe(true);
+  await motion.click();
+  await expect(motion).toHaveAttribute('aria-pressed','false');
+  await expect(page.locator('#projects')).toBeVisible();
+});
+
+test('responsive navigation becomes a menu at tablet widths and closes with Escape',async({page})=>{
+  await page.setViewportSize({width:1024,height:768});
+  await page.goto('/');
+  const toggle=page.locator('#navToggle');
+  await expect(toggle).toBeVisible();
+  await toggle.click();
+  await expect(page.locator('#navLinks')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(toggle).toHaveAttribute('aria-expanded','false');
+  await expect(page.locator('#navLinks')).toBeHidden();
+});
+
+test('all page headings use the same configured display font',async({page})=>{
+  const fonts=[];
+  for(const location of ['/', '/workbench.html','/case-study.html?project=qrshield']) {
+    await page.goto(location);
+    fonts.push(await page.locator('h1').first().evaluate(el=>getComputedStyle(el).fontFamily));
+  }
+  expect(new Set(fonts).size).toBe(1);
+  expect(fonts[0]).toContain('Space Grotesk');
+});
+
+for(const width of [320,375,390,430,768,1024,1280,1440]) {
+  test('viewport '+width+'px has no page overflow and keeps content reachable',async({page})=>{
+    await page.setViewportSize({width,height:width<500?844:900});
+    const routes=['/','/workbench.html','/case-study.html?project=qrshield'];
+    for(const route of routes) {
+      await page.goto(route);
+      const info=await page.evaluate(()=>({
+        viewport:window.innerWidth,
+        scroll:document.documentElement.scrollWidth,
+        main:document.querySelector('main')?.getBoundingClientRect().toJSON()
+      }));
+      expect(info.scroll,route+' overflows at '+width+'px').toBeLessThanOrEqual(info.viewport+2);
+      expect(info.main.width).toBeGreaterThan(200);
+      await expect(page.locator('h1').first()).toBeVisible();
+      if(route==='/'&&width<=430) {
+        const rects=await page.evaluate(()=>({
+          name:document.querySelector('.hero h1').getBoundingClientRect().toJSON(),
+          art:document.querySelector('.hero-art').getBoundingClientRect().toJSON()
+        }));
+        expect(rects.name.top,'Name should appear before robot on a phone').toBeLessThan(rects.art.top);
+      }
+      if ((width===390||width===1440) && route!=='/' ) {
+        mkdirSync('test-results/visual',{recursive:true});
+        const basename=route.includes('workbench')?'workbench':'case-study';
+        await page.screenshot({path:'test-results/visual/'+basename+'-'+width+'.png',fullPage:true,animations:'disabled'});
+      }
+    }
+    if(width===390||width===1440){
+      await page.goto('/');
+      mkdirSync('test-results/visual',{recursive:true});
+      await page.screenshot({path:'test-results/visual/home-'+width+'.png',fullPage:true,animations:'disabled'});
+    }
+  });
+}
+
+test('not-found route keeps usable navigation and is excluded from search indexes',async({page})=>{
+  await page.setViewportSize({width:390,height:844});
+  await page.goto('/404.html');
+  expect(await page.locator('#motionToggle').evaluate(el=>el.parentElement.classList.contains('nav'))).toBe(true);
+  await expect(page.getByRole('heading',{name:"This path isn't in the archive."})).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content','noindex');
+  await expect(page.getByRole('link',{name:/Back to the portfolio/i})).toHaveAttribute('href','index.html');
+  const width=await page.evaluate(()=>document.documentElement.scrollWidth);
+  expect(width).toBeLessThanOrEqual(392);
+});
