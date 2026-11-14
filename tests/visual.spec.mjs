@@ -86,8 +86,8 @@ test.describe('responsive geometry / all published experiences',()=>{
 
 test('document metadata and helpful 404 page',async({page})=>{
   await page.goto('/404.html');
-  await expect(page.getByRole('heading',{name:'Nothing here to inspect.'})).toBeVisible();
-  await expect(page.getByRole('link',{name:/Return to portfolio/})).toHaveAttribute('href','/');
+  await expect(page.getByRole('heading',{name:"This path isn't in the archive."})).toBeVisible();
+  await expect(page.getByRole('link',{name:/Back to the portfolio/})).toHaveAttribute('href','/index.html');
   await page.goto('/workbench.html');
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href',/workbench\.html/);
   await page.goto('/case-study.html?project=qrshield');
