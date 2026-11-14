@@ -283,3 +283,15 @@ a { text-underline-offset: 4px; }
   .lab-sidebar { max-width:100%; overflow:hidden; }
   .lab-tabs { overflow-x:auto; overscroll-behavior-x:contain; scrollbar-width:thin; }
 }
+
+/* Progressive reveal: content is visible before JS and in full-page captures.
+   Scroll entry adds a brief flourish rather than hiding essential sections. */
+.reveal { opacity:1; transform:none; will-change:auto; transition:none; }
+.reveal.in { animation: workbench-reveal .58s cubic-bezier(.16,1,.3,1) both; }
+@keyframes workbench-reveal {
+  from { opacity:.72; transform:translateY(12px); }
+  to { opacity:1; transform:none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal.in { animation:none !important; }
+}
