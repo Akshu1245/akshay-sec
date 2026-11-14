@@ -82,6 +82,8 @@ for(const slug of orderedProjects)check(sitemap.includes('project='+slug),'Sitem
 check(!/\sstyle="/i.test(content('404.html')),'404 page has inline style incompatible with CSP');
 check((home.match(/class="shot-link"/g)||[]).length===6,'Six real screenshot links must remain on the homepage');
 check(home.includes('id="featured-heading"')&&home.includes('qrshield-mobile.png'),'Featured QRShield proof panel missing');
+check(home.includes('assets/shot-cyberlab.png'),'Cyber Lab evidence must be self-hosted');
+check(home.includes('motion.js'),'Accessible motion toggle must be loaded on homepage');
 for(const m of home.matchAll(/<img\b[^>]*>/g)){
   check(/\bwidth="\d+"/.test(m[0])&&/\bheight="\d+"/.test(m[0]),'Homepage image missing intrinsic dimensions');
 }
@@ -104,7 +106,7 @@ for(const p of Object.values(projects)){
   if(p.live)external.add(p.live);
 }
 check(orderedProjects.length===5,'Five case studies expected');
-for(const name of ['style.css','studio.css','main.js','site-shell.js','bg-field.js','case-study.mjs','workbench.mjs','engines.mjs','project-data.mjs','assets/mark.svg']){
+for(const name of ['style.css','studio.css','main.js','site-shell.js','bg-field.js','case-study.mjs','workbench.mjs','engines.mjs','project-data.mjs','assets/mark.svg','assets/shot-cyberlab.png','motion.js']){
   check(existsSync(resolve(root,name)),'Required design/runtime file missing: '+name);
 }
 console.log('Portfolio audit: '+pages.length+' pages, '+relative.size+' internal paths, '+external.size+' external URL references.');
