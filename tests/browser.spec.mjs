@@ -63,7 +63,7 @@ test('logwatch demo shows repeated failures followed by success',async({page})=>
 test('mobile navigation works without sideways scrolling',async({page})=>{
   await page.setViewportSize({width:390,height:844});
   await page.goto('/');
-  const menu=page.getByRole('button',{name:'Open menu'});
+  const menu=page.locator('#navToggle');
   await menu.click();
   await expect(menu).toHaveAttribute('aria-expanded','true');
   await page.locator('#navLinks').getByRole('link',{name:'workbench'}).click();
