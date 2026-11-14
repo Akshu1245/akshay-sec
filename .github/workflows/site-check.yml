@@ -26,6 +26,7 @@ jobs:
           node --check main.js
           node --check site-shell.js
           node --check bg-field.js
+          node --check motion.js
           node --check case-study.mjs
           node --check workbench.mjs
           node --check engines.mjs
@@ -54,7 +55,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p release
-          cp index.html case-study.html workbench.html style.css studio.css main.js site-shell.js bg-field.js case-study.mjs workbench.mjs engines.mjs project-data.mjs README.md release/
+          cp index.html case-study.html workbench.html 404.html style.css studio.css main.js site-shell.js bg-field.js motion.js case-study.mjs workbench.mjs engines.mjs project-data.mjs README.md vercel.json robots.txt sitemap.xml release/
           cp -R assets release/assets
           (cd release && zip -q -r ../akshay-sec-release.zip .)
           unzip -t akshay-sec-release.zip

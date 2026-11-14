@@ -6,7 +6,8 @@ import {fileURLToPath} from 'node:url';
 import {projects,orderedProjects} from '../project-data.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
-const pages=['index.html','case-study.html','workbench.html'];
+const pages=['index.html','case-study.html','workbench.html','404.html'];
+const pageList=pages;
 const failures=[];
 const warnings=[];
 const relative=new Set();
@@ -82,8 +83,26 @@ for(const p of Object.values(projects)){
   if(p.live)external.add(p.live);
 }
 check(orderedProjects.length===5,'Five case studies expected');
-for(const name of ['style.css','studio.css','main.js','site-shell.js','bg-field.js','case-study.mjs','workbench.mjs','engines.mjs','project-data.mjs','assets/mark.svg']){
+for(const name of ['style.css','studio.css','main.js','site-shell.js','bg-field.js','motion.js','case-study.mjs','workbench.mjs','engines.mjs','project-data.mjs','assets/mark.svg']){
   check(existsSync(resolve(root,name)),'Required design/runtime file missing: '+name);
+}
+// Deployment-only files and security invariants are release prerequisites.
+for (const file of ['vercel.json','robots.txt','sitemap.xml','docs/visual-benchmark.md']) {
+  check(existsSync(resolve(root,file)),'Missing release file: '+file);
+}
+const config=JSON.parse(content('vercel.json'));
+const configuredHeaders=config.headers?.flatMap(item=>item.headers||[])||[];
+const csp=configuredHeaders.find(h=>h.key.toLowerCase()==='content-security-policy')?.value||'';
+check(csp.includes("object-src 'none'"),'CSP must block active object embeds');
+check(csp.includes("script-src 'self'"),'CSP must restrict scripts to this site');
+check(csp.includes("frame-ancestors 'none'"),'CSP must prevent framing');
+check(configuredHeaders.some(h=>h.key==='X-Content-Type-Options'&&h.value==='nosniff'),'Missing nosniff header');
+check(configuredHeaders.some(h=>h.key==='Permissions-Policy'),'Missing permissions policy');
+for(const page of pages) {
+  check(content(page).includes('motion.js'),'Missing motion control on '+page);
+}
+for(const slug of orderedProjects) {
+  check(content('sitemap.xml').includes('case-study.html?project='+slug),'Missing sitemap case '+slug);
 }
 console.log('Portfolio audit: '+pages.length+' pages, '+relative.size+' internal paths, '+external.size+' external URL references.');
 if(failures.length)console.error(failures.map(e=>'FAIL '+e).join('\n'));

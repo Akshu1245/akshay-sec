@@ -24,7 +24,7 @@ export const projects = {
     tagline:"A place to learn by inspecting real code.", year:"2026",
     subtitle:"Python utilities for local security research and authorized testing.",
     role:"Personal Python security toolkit",
-    screenshot:"https://raw.githubusercontent.com/Akshu1245/akshay-cyber-lab/main/docs/auditor-output.png",
+    screenshot:"assets/shot-cyberlab.png",
     alt:"Real terminal capture of the Cyber Lab security auditor scanning its own files",
     screenshotNote:"Terminal capture from a self-scan, maintained in the source repository.",
     source:"https://github.com/Akshu1245/akshay-cyber-lab",

@@ -40,6 +40,14 @@ function list(values) {
 }
 function renderCase(project) {
   document.title = project.title + ' | Case File · K S Akshay';
+  const canonical = document.querySelector('link[rel="canonical"]') || document.createElement('link');
+  canonical.rel = 'canonical';
+  canonical.href = 'https://akshay-sec.vercel.app/case-study.html?project=' + slug;
+  if (!canonical.isConnected) document.head.append(canonical);
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute('content', project.title + ' | K S Akshay security case file');
+  const ogDescription = document.querySelector('meta[property="og:description"]');
+  if (ogDescription) ogDescription.setAttribute('content', project.subtitle);
   label.textContent = project.title;
   root.replaceChildren();
 

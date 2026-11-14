@@ -207,6 +207,7 @@
 
   const accent = (document.currentScript && document.currentScript.dataset.accent) || '#41d9ff';
   const video = document.querySelector('.bg-video');
+  let pausedByVisitor = false;
   build();
 
   let raf = null;
@@ -222,7 +223,7 @@
   const startCanvas = () => {
     canvas.classList.add('is-active');
     video?.classList.add('is-unavailable');
-    if (!document.hidden && raf === null) raf = requestAnimationFrame(loop);
+    if (!document.hidden && !pausedByVisitor && raf === null) raf = requestAnimationFrame(loop);
   };
 
   if (stepMode) {
@@ -238,6 +239,7 @@
     video.addEventListener('error', startCanvas);
     video.querySelector('source')?.addEventListener('error', startCanvas);
     video.addEventListener('playing', () => {
+      if (pausedByVisitor) { video.pause(); return; }
       stopCanvas();
       canvas.classList.remove('is-active');
       video.classList.remove('is-unavailable');
@@ -256,6 +258,21 @@
     document.addEventListener('visibilitychange', () => document.hidden ? stopCanvas() : startCanvas());
   }
 
+  // Manual pause is opt-in; normal visitors still see the running HUD.
+  document.addEventListener('portfolio:motionchange', event => {
+    pausedByVisitor = !!event.detail?.paused;
+    if (pausedByVisitor) {
+      stopCanvas();
+      video?.pause();
+    } else if (!reduce && !stepMode) {
+      if (video && !video.classList.contains('is-unavailable')) {
+        const attempt = video.play();
+        if (attempt?.catch) attempt.catch(startCanvas);
+      } else {
+        startCanvas();
+      }
+    }
+  });
   let rto = null;
   addEventListener('resize', () => {
     clearTimeout(rto);
