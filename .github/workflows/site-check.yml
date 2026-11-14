@@ -7,6 +7,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: portfolio-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
@@ -32,8 +36,11 @@ jobs:
           node --check engines.mjs
           node --check project-data.mjs
           node --check scripts/check-site.mjs
-      - name: Internal links, real assets and attribution
-        run: node scripts/check-site.mjs
+          node --check scripts/build-cases.mjs
+          node --check scripts/build-site.mjs
+          python3 -m py_compile scripts/devserver.py
+      - name: Generate static SEO cases and validate production output
+        run: node scripts/build-site.mjs
       - name: Deterministic engine tests
         run: node --test tests/engines.test.mjs
       - name: Install browser QA dependency
@@ -47,17 +54,16 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: akshay-sec-visual-review
-          path: test-results/visual
+          path: |
+            test-results/visual
+            test-results/visual-audit
           if-no-files-found: ignore
           retention-days: 7
       - name: Package verified static site
         if: github.ref == 'refs/heads/main'
         run: |
           set -euo pipefail
-          mkdir -p release
-          cp index.html case-study.html workbench.html 404.html style.css studio.css main.js site-shell.js bg-field.js motion.js case-study.mjs workbench.mjs engines.mjs project-data.mjs README.md vercel.json robots.txt sitemap.xml release/
-          cp -R assets release/assets
-          (cd release && zip -q -r ../akshay-sec-release.zip .)
+          (cd dist && zip -q -r ../akshay-sec-release.zip .)
           unzip -t akshay-sec-release.zip
       - name: Upload deployment-ready release
         if: github.ref == 'refs/heads/main'

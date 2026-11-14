@@ -26,13 +26,13 @@
   function render() {
     document.documentElement.classList.toggle('motion-paused', paused);
     toggle.setAttribute('aria-pressed', String(paused));
-    toggle.setAttribute('aria-label', paused ? 'Resume ambient background motion' : 'Pause ambient background motion');
+    toggle.setAttribute('aria-label', paused ? 'Resume motion' : 'Pause motion');
     toggle.replaceChildren();
 
     const symbol = document.createElement('span');
     symbol.className = 'motion-symbol';
     symbol.setAttribute('aria-hidden', 'true');
-    symbol.textContent = paused ? '▶' : 'Ⅱ';
+    symbol.textContent = ''; // icon is drawn in CSS; only visible label text names the button
     const text = document.createElement('span');
     text.textContent = paused ? 'Resume motion' : 'Pause motion';
     toggle.append(symbol, text);

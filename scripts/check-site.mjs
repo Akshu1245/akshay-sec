@@ -95,6 +95,8 @@ const configuredHeaders=config.headers?.flatMap(item=>item.headers||[])||[];
 const csp=configuredHeaders.find(h=>h.key.toLowerCase()==='content-security-policy')?.value||'';
 check(csp.includes("object-src 'none'"),'CSP must block active object embeds');
 check(csp.includes("script-src 'self'"),'CSP must restrict scripts to this site');
+check(!csp.includes("'unsafe-inline'")&&!csp.includes("'unsafe-eval'"),'CSP should reject unsafe inline scripts/styles and eval');
+check(config.outputDirectory==='dist','Vercel must deploy the isolated dist output');
 check(csp.includes("frame-ancestors 'none'"),'CSP must prevent framing');
 check(configuredHeaders.some(h=>h.key==='X-Content-Type-Options'&&h.value==='nosniff'),'Missing nosniff header');
 check(configuredHeaders.some(h=>h.key==='Permissions-Policy'),'Missing permissions policy');
@@ -102,8 +104,29 @@ for(const page of pages) {
   check(content(page).includes('motion.js'),'Missing motion control on '+page);
 }
 for(const slug of orderedProjects) {
-  check(content('sitemap.xml').includes('case-study.html?project='+slug),'Missing sitemap case '+slug);
+  check(content('sitemap.xml').includes('cases/'+slug+'.html'),'Missing static sitemap case '+slug);
 }
+
+// Static case files must be independently readable without JavaScript.
+for(const slug of orderedProjects){
+ const file='cases/'+slug+'.html';
+ check(existsSync(resolve(root,file)),'Missing generated static case '+slug);
+ if(!existsSync(resolve(root,file)))continue;
+ const html=content(file);
+ check(html.includes('<h1>'+projects[slug].title+'</h1>'),'Static case missing title: '+slug);
+ check(html.includes(projects[slug].source),'Static case missing source: '+slug);
+ check(html.includes('Limitations and open questions'),'Static case missing limitations: '+slug);
+ check(html.includes('rel="canonical"'),'Static case missing canonical: '+slug);
+ check(html.includes('og:image'),'Static case missing social preview image: '+slug);
+ check(!html.includes('src="case-study.mjs"'),'Static case must render without client JavaScript: '+slug);
+ for(const match of html.matchAll(/(?:href|src|poster)="([^"]+)"/g)){
+   const url=match[1].split(/[?#]/)[0];
+   if(!url||url.startsWith('https:')||url.startsWith('http:')||url.startsWith('mailto:')||url.startsWith('data:'))continue;
+   const actual=resolve(root,'cases',url);
+   check(actual.startsWith(root+'/')&&existsSync(actual),'Static case broken asset or link: '+slug+' -> '+url);
+ }
+}
+
 console.log('Portfolio audit: '+pages.length+' pages, '+relative.size+' internal paths, '+external.size+' external URL references.');
 if(failures.length)console.error(failures.map(e=>'FAIL '+e).join('\n'));
 else console.log('PASS: internal links, project routing, assets, source provenance and publication guards.');

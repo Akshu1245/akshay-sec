@@ -47,3 +47,24 @@ This is a **representative design/interaction benchmark**, not a claim to have i
 ## Metrics to watch
 
 The Web Vitals field thresholds are LCP <= 2.5s, INP <= 200ms and CLS <= 0.1 at the 75th percentile (real users). CI screenshots or simulated laboratory timing alone do not demonstrate those field metrics. See [web.dev Web Vitals](https://web.dev/articles/vitals) and [W3C WCAG 2.2](https://www.w3.org/TR/WCAG22/).
+
+## Release-hardening audit: source research and viewport geometry
+
+Additional current references reviewed: [Snyk security platform](https://snyk.io/platform/), [Hack The Box Academy](https://academy.hackthebox.com/), [PortSwigger Web Security Academy](https://portswigger.net/web-security/), [Wiz](https://www.wiz.io/), [Cloudflare security dashboard](https://developers.cloudflare.com/security/), and [1Password](https://1password.com/). The strongest patterns are readable information hierarchy, real screens instead of invented illustrations of product results, safe sample-based interaction, and visible limitations.
+
+**What was compared:** hero alignment and information density, navigation at intermediate widths, readable line length, technical case evidence, image framing, touch targets, visual feedback, reduced motion, content available without JavaScript, and deploy-time security behavior. A byte-for-byte pixel match against another brand is neither desirable nor meaningful: the layouts serve different purposes and we are not copying their art.
+
+**Measurable verification added:** 320, 360, 390, 768, 1024, 1440 and 1920 CSS-pixel screens for home, workbench and a representative case page; screen captures attached to GitHub Actions. The existing browser suite also checks 375, 430 and 1280 widths. The new tests assert no page-wide horizontal overflow, error-free JavaScript, static case content without scripts, production-like CSP headers and WCAG A/AA serious/critical findings.
+
+**Fixes delivered in this branch:**
+
+- Case-study cards point to five separately generated static HTML files with unique metadata. The legacy JavaScript-driven query page is preserved but marked noindex.
+- Screenshot previews now reserve their aspect ratio before images load; the full-resolution originals remain available.
+- Vercel builds from the repository into an isolated `dist/` folder, excluding source tests, local analysis and development files.
+- CSP no longer permits unsafe inline styles or scripts or unrestricted application connections; the local preview test server applies the same CSP.
+- Footer inline links have a visible underline and the pause button's programmatic label matches the visible label.
+- Static and browser audits run as pull-request gates and publish screenshots for manual review.
+
+**Performance honesty:** the source video is approximately 0.93 MB. The standalone original site bundle was approximately 2.9 MB, excluding browser-installed fonts. These are asset-size observations, not LCP, INP or CLS user-field measurements. Real Web Vitals must be measured on the actual deployed domain.
+
+**Release blocking rule:** a passing GitHub workflow means the repository is internally verified; it does not prove Vercel has assigned `akshay-sec.vercel.app` to the new commit. Confirm Git integration, production routes, source commit and response headers after publishing.
