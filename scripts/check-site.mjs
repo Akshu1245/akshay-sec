@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {projects,orderedProjects} from '../project-data.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
-const pages=['index.html','case-study.html','workbench.html'];
+const pages=['index.html','case-study.html','workbench.html','404.html'];
 const failures=[];
 const warnings=[];
 const relative=new Set();
@@ -45,8 +45,9 @@ for(const page of pages){
       relative.add(path);
       check(existsSync(resolve(root,path)),page+': local asset missing '+path);
     }
-    if(hash&&pages.includes(path)) {
-      check(ids.get(path).has(hash)||(path==='workbench.html'&&specialFragments.has(hash)),page+': broken cross-page anchor '+url);
+    if(hash&&(pages.includes(path)||path==='')) {
+      const target=path||'index.html';
+      check(ids.get(target).has(hash)||(target==='workbench.html'&&specialFragments.has(hash)),page+': broken cross-page anchor '+url);
     }
     if(path==='case-study.html'&&pathAndQuery.includes('project=')){
       const p=new URLSearchParams(pathAndQuery.split('?')[1]).get('project');
@@ -62,7 +63,28 @@ for(const page of pages){
 const home=content('index.html');
 const detail=content('case-study.html');
 const lab=content('workbench.html');
+const deploy=JSON.parse(content('vercel.json'));
+const releaseBuild=content('scripts/build-site.mjs');
+const sitemap=content('sitemap.xml');
+check(deploy.outputDirectory==='dist','Vercel must publish allowlisted dist, not repository root');
+check(deploy.buildCommand==='node scripts/build-site.mjs','Vercel build command incorrect');
+const commonHeaders=deploy.headers.find(x=>x.source==='/(.*)')?.headers||[];
+const header=new Map(commonHeaders.map(x=>[x.key.toLowerCase(),x.value]));
+check(header.has('content-security-policy'),'CSP response header missing');
+check(header.get('content-security-policy')?.includes("script-src 'self'"),'CSP permits untrusted or inline script');
+check(header.get('content-security-policy')?.includes("frame-ancestors 'none'"),'Clickjacking guard missing');
+check(header.get('x-content-type-options')==='nosniff','MIME sniff protection missing');
+check(header.has('referrer-policy')&&header.has('permissions-policy'),'Privacy/security header missing');
+for (const name of ['index.html','workbench.html','case-study.html','404.html','robots.txt','sitemap.xml']) {
+  check(releaseBuild.includes(name),'Publish-only build does not include '+name);
+}
+for(const slug of orderedProjects)check(sitemap.includes('project='+slug),'Sitemap missing case '+slug);
+check(!/\sstyle="/i.test(content('404.html')),'404 page has inline style incompatible with CSP');
 check((home.match(/class="shot-link"/g)||[]).length===6,'Six real screenshot links must remain on the homepage');
+check(home.includes('id="featured-heading"')&&home.includes('qrshield-mobile.png'),'Featured QRShield proof panel missing');
+for(const m of home.matchAll(/<img\b[^>]*>/g)){
+  check(/\bwidth="\d+"/.test(m[0])&&/\bheight="\d+"/.test(m[0]),'Homepage image missing intrinsic dimensions');
+}
 check((home.match(/\bproject-case-link\b/g)||[]).length===5,'Five project case-file links are required');
 check(home.includes('no paying customers'),'RaksHex pre-revenue status missing');
 check(home.includes('pre-incorporation'),'RaksHex incorporation caveat missing');
