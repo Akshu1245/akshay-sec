@@ -8,7 +8,7 @@ const dist = resolve(root, 'dist');
 const publish = [
   'index.html', 'workbench.html', 'case-study.html', '404.html',
   'style.css', 'studio.css', 'main.js', 'site-shell.js', 'bg-field.js',
-  'engines.mjs', 'workbench.mjs', 'case-study.mjs', 'project-data.mjs',
+  'engines.mjs', 'workbench.mjs', 'case-study.mjs', 'project-data.mjs', 'motion.js',
   'robots.txt', 'sitemap.xml',
 ];
 for (const name of publish) {
