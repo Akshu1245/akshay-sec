@@ -367,3 +367,6 @@ a { text-underline-offset: 4px; }
   .featured-phone { transition:none; }
   .featured-visual:hover .featured-phone { transform:none; }
 }
+
+.error-404 { max-width:760px; margin:60px auto 120px; }
+@media(max-width:600px){.error-404 {margin:38px auto 70px;}.error-404 .btn{margin:6px 6px 0 0;}}
