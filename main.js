@@ -140,5 +140,9 @@ addEventListener('scroll', () => {
   if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const lines = ['QR scanning · local-first', 'Python tools · public source', 'WhisperCache · hackathon prototype', 'RaksHex · private beta', 'Open to security internships'];
   let i = 0;
-  setInterval(() => { i = (i + 1) % lines.length; el.textContent = lines[i]; }, 2600);
+  setInterval(() => {
+    if (document.documentElement.classList.contains('motion-paused') || document.hidden) return;
+    i = (i + 1) % lines.length;
+    el.textContent = lines[i];
+  }, 2600);
 })();

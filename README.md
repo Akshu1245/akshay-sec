@@ -81,3 +81,11 @@ No automated test is a substitute for inspecting a live production deployment an
 ## Maintenance checklist
 
 Keep the case text consistent with the source repository, test changes before merging, do not invent metrics or projects, label team work and forks accurately, verify any newly added live-demo URLs, and keep the public contact email consistent across pages.
+
+## Visual QA and production release (14 November 2026)
+
+The page designs were benchmarked against the information architecture of PortSwigger Web Security Academy, PentesterLab and TryHackMe, and against the evidence/claim transparency patterns used in Tailscale's security pages. These sites are references, **not** visual or source assets. See `docs/visual-benchmark.md`.
+
+The current CSS/JS includes a user-controlled pause for the ambient motion, with the animation still **on by default**. Fonts are consistently loaded on home, case files and the workbench. The mobile hero begins with the name and role instead of burying them under the illustration. The cyber-lab output image is now bundled locally and its SHA matches the source repository.
+
+On Vercel, `vercel.json` supplies relevant security response headers. Deploy the repository's `main` branch as a **static website** (root directory `./`, no framework preset, no build command, no output override). Run the website and browser checks first. Publishing this GitHub code does not automatically update any disconnected Vercel project.
